@@ -5,10 +5,8 @@ services:
     image: postgres:13
     container_name: challenge-one-db
     restart: on-failure
-    environment:
-      - POSTGRES_DB=${DATABASE_NAME}
-      - POSTGRES_USER=${DATABASE_USER}
-      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+    env_file:
+      - .env
     expose:
       - 5432
 
