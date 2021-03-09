@@ -1,3 +1,5 @@
+from sqlalchemy import or_
+
 from app.config.database import db
 from app.config.password_security import hash_password
 from app.models import user_model
@@ -62,18 +64,18 @@ def delete(user_id: int):
 
 def get_by_login(login: str) -> user_model.User:
     return db.query(user_model.User).filter(
-        user_model.User.cpf == login or
-        user_model.User.pis == login or
-        user_model.User.email == login
+        or_(user_model.User.cpf == login,
+            user_model.User.pis == login,
+            user_model.User.email == login)
     ).first()
 
 
 def get_by_cpf(cpf: str) -> user_model.User:
-    return db.query(user_model.User).filter(user_model.User.cpf == cpf).first()
+    return
 
 
 def get_by_pis(pis: str) -> user_model.User:
-    return db.query(user_model.User).filter(user_model.User.pis == pis).first()
+    return
 
 
 def get_by_email(email: str) -> user_model.User:

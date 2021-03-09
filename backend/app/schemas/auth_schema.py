@@ -1,4 +1,3 @@
-
 from typing import Optional
 
 from fastapi import Form
@@ -10,6 +9,10 @@ from app.models.user_model import User
 class AuthCredentials(BaseModel):
     login: str = Form(...)
     password: str = Form(...)
+
+
+class AuthToken(BaseModel):
+    token: str
 
 
 class AuthData(BaseModel):

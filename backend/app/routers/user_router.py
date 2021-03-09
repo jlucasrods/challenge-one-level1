@@ -3,6 +3,7 @@ from fastapi import HTTPException, APIRouter, Response, Depends
 from app.config.auth_security import verify_auth
 from app.repositories import user_repository
 from app.models import user_model
+from app.repositories.user_repository import get_by_cpf
 from app.schemas import user_schema
 from app.schemas.auth_schema import AuthData
 
