@@ -1,10 +1,9 @@
 import re
 
 from pydantic import BaseModel, EmailStr, validator
-
 from validate_docbr import CPF, PIS
 
-from app.schemas.addressSchema import Address
+from app.schemas.address_schema import Address
 
 cpf_validator = CPF()
 pis_validator = PIS()
@@ -51,8 +50,3 @@ class UserRequest(UserBase):
 
 class UserResponse(UserBase):
     id: int
-
-
-class UserAuth(BaseModel):
-    login: str
-    password: str

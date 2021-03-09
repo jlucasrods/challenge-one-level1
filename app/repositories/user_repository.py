@@ -1,18 +1,16 @@
-from typing import List
-
-from app.config.password_hasher import hash_password
-from app.models import userModel
-from app.models.addressModel import Address
-from app.schemas import userSchema
 from app.config.database import db
+from app.config.password_security import hash_password
+from app.models import user_model
+from app.models.address_model import Address
+from app.schemas import user_schema
 
 
 def get(user_id: int):
-    return db.query(userModel.User).get(user_id)
+    return db.query(user_model.User).get(user_id)
 
 
-def create(user: userSchema.UserRequest) -> userModel.User:
-    db_user = userModel.User(
+def create(user: user_schema.UserRequest) -> user_model.User:
+    db_user = user_model.User(
         name=user.name,
         email=user.email,
         cpf=user.cpf,
@@ -34,8 +32,8 @@ def create(user: userSchema.UserRequest) -> userModel.User:
     return db_user
 
 
-def update(user_id: int, user: userSchema.UserRequest) -> userModel.User:
-    db_user = db.query(userModel.User).get(user_id)
+def update(user_id: int, user: user_schema.UserRequest) -> user_model.User:
+    db_user = db.query(user_model.User).get(user_id)
     db_user.name = user.name
     db_user.email = user.email
     db_user.cpf = user.cpf
@@ -57,26 +55,26 @@ def update(user_id: int, user: userSchema.UserRequest) -> userModel.User:
 
 
 def delete(user_id: int):
-    db_user = db.query(userModel.User).get(user_id)
+    db_user = db.query(user_model.User).get(user_id)
     db.delete(db_user)
     db.commit()
 
 
-def get_by_login(login: str) -> userModel.User:
-    return db.query(userModel.User).filter(
-        userModel.User.cpf == login or
-        userModel.User.pis == login or
-        userModel.User.email == login
+def get_by_login(login: str) -> user_model.User:
+    return db.query(user_model.User).filter(
+        user_model.User.cpf == login or
+        user_model.User.pis == login or
+        user_model.User.email == login
     ).first()
 
 
-def get_by_cpf(cpf: str) -> userModel.User:
-    return db.query(userModel.User).filter(userModel.User.cpf == cpf).first()
+def get_by_cpf(cpf: str) -> user_model.User:
+    return db.query(user_model.User).filter(user_model.User.cpf == cpf).first()
 
 
-def get_by_pis(pis: str) -> userModel.User:
-    return db.query(userModel.User).filter(userModel.User.pis == pis).first()
+def get_by_pis(pis: str) -> user_model.User:
+    return db.query(user_model.User).filter(user_model.User.pis == pis).first()
 
 
-def get_by_email(email: str) -> userModel.User:
-    return db.query(userModel.User).filter(userModel.User.email == email).first()
+def get_by_email(email: str) -> user_model.User:
+    return db.query(user_model.User).filter(user_model.User.email == email).first()

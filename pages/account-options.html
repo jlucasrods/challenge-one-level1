@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Opções de conta{% endblock %}
+
+{% block head %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %}
+    {% include 'shared/header.html' %}
+    <main>
+        <div id="widget">
+            <h1>Opções de conta</h1>
+            <hr>
+            <form action="/api/users/me" class="form" data-method="PUT" data-success-redirect="/account" >
+                <div class="columns">
+                    <div>
+                        <input type="text" name="name" value="{{ user.name }}" placeholder="Nome" required>
+                        <input type="email" name="email" value="{{ user.email }}" placeholder="email" required>
+                        <input type="number" name="cpf" value="{{ user.cpf }}" placeholder="CPF (somente números)" required>
+                        <input type="number" name="pis" value="{{ user.pis }}" placeholder="PIS (somente números)" required>
+                        <input type="password" name="password" placeholder="Senha" autocomplete="off" required>
+                    </div>
+                    <div>
+                        <input type="text" name="addresses.country" value="{{ user.addresses.country }}" placeholder="País" required>
+                        <input type="text" name="addresses.state" value="{{ user.addresses.state }}" placeholder="Estado" required>
+                        <input type="text" name="addresses.city" value="{{ user.addresses.city }}" placeholder="Cidade" required>
+                        <input type="text" name="addresses.zip_code" value="{{ user.addresses.zip_code }}" placeholder="CEP" required>
+                        <input type="text" name="addresses.street" value="{{ user.addresses.street }}" placeholder="Rua" required>
+                        <input type="text" name="addresses.city" value="{{ user.addresses.city }}" placeholder="Cidade" required>
+                        <input type="text" name="addresses.number" value="{{ user.addresses.number }}" placeholder="Número" required>
+                        <input type="text" name="addresses.complement" value="{{ user.addresses.complement }}" placeholder="Complemento" required>
+                    </div>
+                </div>
+                <div class="row response">
+                </div>
+                <div class="row">
+                    <a href="/auth/logout" class="button">Sair</a>
+                    <a href="#" class="button warning deleteAccount">Deletar conta</a>
+                    <input type="submit" value="Atualizar dados" class="button ok">
+                </div>
+            </form>
+        </div>
+    </main>
+{% endblock %}
+
+{% block script %}
+    {{ super() }}
+{% endblock %}

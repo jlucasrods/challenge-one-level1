@@ -1,5 +1,5 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
 
 from app.config.database import Base, engine
 
@@ -14,7 +14,7 @@ class User(Base):
     pis = Column(String(11), unique=True)
     password = Column(String(255))
 
-    addresses = relationship("Address", back_populates="user", uselist=False, cascade="all, delete")
+    addresses = relationship("Address", back_populates="user", uselist=False, cascade="all, delete-orphan")
 
 
 User.metadata.create_all(bind=engine)

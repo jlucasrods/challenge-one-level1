@@ -4,10 +4,8 @@ DATABASE_URL: str = os.getenv('DATABASE_URL')
 if not DATABASE_URL:
     raise Exception('DATABASE_URL environment variable is not defined')
 
-API_PREFIX: str = os.getenv('API_PREFIX') or ''
+AUTH_JWT_SECRET: str = os.getenv('AUTH_JWT_SECRET')
+if not AUTH_JWT_SECRET:
+    raise Exception('AUTH_JWT_SECRET environment variable is not defined')
 
-DEBUG: bool = bool(os.getenv('DEBUG')) or False
-
-RELOAD: bool = bool(os.getenv('RELOAD')) or False
-
-PORT: int = int(os.getenv('PORT')) or 8000
+API_PREFIX: str = os.getenv('API_PREFIX', '/api')
