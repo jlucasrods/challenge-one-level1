@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Olá {{user.name}} {% endblock %}
+
+{% block head %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %}
+    {% include 'shared/header.html' %}
+    <main>
+        <div id="widget">
+            <h1>Olá {{ user.name }}
+            </h1>
+            <hr>
+            <div class="form">
+                <div class="row">
+                    <a href="/auth/logout" class="button">Sair</a>
+                    <a href="/account/options" class="button">Ver meus dados</a>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+{% block script %}
+    {{ super() }}
+{% endblock %}

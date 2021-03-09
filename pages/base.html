@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A page about a challenge that will have legs">
+    <meta name="author" content="José Lucas Rodrigues Silva">
+    <title>{% block title %}{% endblock %} &#8226; Challenge One</title>
+    <link rel="icon" href="{{ url_for('static', path='/images/favicon.ico') }}" sizes="32x32" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="{{ url_for('static', path='/css/base.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', path='/css/widget-form.css') }}" rel="stylesheet">
+    {% endblock %}
+</head>
+
+<body>
+    {% block content %}
+    {% endblock %}
+
+    {% block script %}
+        <script src="{{ url_for('static', path='/js/base.js') }}"></script>
+    {% endblock %}
+</body>
+</html>
