@@ -12,7 +12,7 @@ from app.crud.user import get_by_login, get
 from app.models.user import UserModel
 
 ALGORITHM = 'HS256'
-TOKEN_EXPIRE_MINUTES = 15
+TOKEN_EXPIRE_MINUTES = 60
 AUTH_COOKIE_NAME = 'session'
 
 cookie_sec = APIKeyCookie(name=AUTH_COOKIE_NAME)
