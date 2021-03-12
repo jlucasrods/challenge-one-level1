@@ -1,9 +1,10 @@
 import re
+from typing import Optional
 
 from pydantic import BaseModel, EmailStr, validator
 from validate_docbr import CPF, PIS
 
-from app.schemas.address_schema import Address
+from app.schemas.address import Address
 
 cpf_validator = CPF()
 pis_validator = PIS()
@@ -14,7 +15,7 @@ class UserBase(BaseModel):
     email: EmailStr
     cpf: str
     pis: str
-    addresses: Address
+    address: Address
 
     @validator("cpf")
     def cpf_should_be_valid(cls, cpf):
@@ -24,9 +25,10 @@ class UserBase(BaseModel):
 
     @validator("cpf")
     def cpf_should_contain_11_numbers(cls, cpf):
-        if not re.match(r"^[0-9]{11}$", cpf):
+        clean_cpf = re.sub("[^0-9]", "", cpf)
+        if len(clean_cpf) != 11:
             raise ValueError("CPF must contain 11 numbers")
-        return cpf
+        return clean_cpf
 
     @validator("pis")
     def pis_should_be_valid(cls, pis):
@@ -36,16 +38,22 @@ class UserBase(BaseModel):
 
     @validator("pis")
     def pis_should_contain_11_numbers(cls, pis):
-        if not re.match(r"^[0-9]{11}$", pis):
+        clean_pis = re.sub("[^0-9]", "", pis)
+        if len(clean_pis) != 11:
             raise ValueError("PIS must contain 11 numbers")
-        return pis
+        return clean_pis
 
     class Config:
         orm_mode = True
 
 
-class UserRequest(UserBase):
+class UserCreate(UserBase):
     password: str
+
+
+class UserUpdate(UserBase):
+    oldPassword: str
+    newPassword: Optional[str] = None
 
 
 class UserResponse(UserBase):

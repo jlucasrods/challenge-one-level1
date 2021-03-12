@@ -1,11 +1,11 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 
-from app.config.database import Base, engine
+from app.config.db import ModelBase, engine
 
 
-class Address(Base):
-    __tablename__ = "addresses"
+class AddressModel(ModelBase):
+    __tablename__ = 'addresses'
 
     id = Column(Integer, primary_key=True, index=True)
     country = Column(String(30))
@@ -17,7 +17,5 @@ class Address(Base):
     complement = Column(String(20))
     user_id = Column(Integer, ForeignKey("users.id"))
 
-    user = relationship("User", back_populates="addresses")
+    user = relationship("UserModel", back_populates="address")
 
-
-Address.metadata.create_all(bind=engine)

@@ -1,11 +1,11 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 
-from app.config.database import Base, engine
+from app.config.db import ModelBase, engine
 
 
-class User(Base):
-    __tablename__ = "users"
+class UserModel(ModelBase):
+    __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(100))
@@ -14,7 +14,4 @@ class User(Base):
     pis = Column(String(11), unique=True)
     password = Column(String(255))
 
-    addresses = relationship("Address", back_populates="user", uselist=False, cascade="all, delete-orphan")
-
-
-User.metadata.create_all(bind=engine)
+    address = relationship('AddressModel', back_populates='user', uselist=False, cascade='all, delete-orphan')

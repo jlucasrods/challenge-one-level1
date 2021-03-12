@@ -1,11 +1,15 @@
 import os
+import sys
+from typing import List
 
-DATABASE_URL: str = os.getenv('DATABASE_URL')
-if not DATABASE_URL:
-    raise Exception('DATABASE_URL environment variable is not defined')
+PYTEST_RUNNING = True if "pytest" in sys.modules else False
 
-AUTH_JWT_SECRET: str = os.getenv('AUTH_JWT_SECRET')
-if not AUTH_JWT_SECRET:
-    raise Exception('AUTH_JWT_SECRET environment variable is not defined')
+DB_URL: str = os.getenv('DB_URL')
+if not DB_URL:
+    raise Exception('DB_URL environment variable is not defined')
 
-API_PREFIX: str = os.getenv('API_PREFIX', '/api')
+AUTH_SECRET: str = os.getenv('AUTH_SECRET')
+if not AUTH_SECRET:
+    raise Exception('AUTH_SECRET environment variable is not defined')
+
+CORS_ORIGINS: List[str] = os.getenv('CORS_ORIGINS', '').split(',')

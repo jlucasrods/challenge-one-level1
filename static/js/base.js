@@ -1,12 +1,12 @@
-const formEl = document.querySelector('form');
-const responseEl = formEl?.querySelector('.response');
+const formEl = document.querySelector('.form');
+const responseEl = formEl.querySelector('.response');
 
-formEl?.addEventListener('submit', (e) => {
+formEl.addEventListener('submit', (e) => {
     e.preventDefault();
     const successRedirect = formEl.dataset.successRedirect;
     const method = formEl.dataset.method.toUpperCase();
     const body = (method === 'POST' || method === 'PUT') ? JSON.stringify(serializeForm(formEl)) : null
-    console.log(body);
+
     fetch(formEl.action, {
         method: method,
         body: body
@@ -21,11 +21,38 @@ formEl?.addEventListener('submit', (e) => {
         });
 });
 
+const cpfField = formEl.querySelector('input[name=cpf]');
+cpfField && new Cleave(cpfField, {
+    blocks: [3, 3, 3, 2],
+  delimiters: ['.', '.', '-'],
+  numericOnly: true
+});
+
+const pisField = formEl.querySelector('input[name=pis]');
+pisField && new Cleave(pisField, {
+    blocks: [3, 5, 2, 1],
+    delimiters: ['.', '.', '-'],
+    numericOnly: true,
+});
+
+
 const deleteAccountEl = formEl?.querySelector('.deleteAccount');
 deleteAccountEl?.addEventListener('click', (e) => {
     e.preventDefault();
     fetch('/api/users/me', {
         method: 'DELETE'
+    }).then(r => {
+        if (r.status === 200) {
+            window.location.href = '/login'
+        }
+    })
+});
+
+const logoutEl = formEl?.querySelector('.logout');
+logoutEl?.addEventListener('click', (e) => {
+    e.preventDefault();
+    fetch('/api/auth/logout', {
+        method: 'GET'
     }).then(r => {
         if (r.status === 200) {
             window.location.href = '/login'
